@@ -8,6 +8,65 @@
 #include "NoConstraintCompositeQuantization.h"
 //#pragma comment(lib,"lbfgs.lib")
 
+/**
+* Callback interface to provide objective function and gradient evaluations.
+* 
+*  The lbfgs() function call this function to obtain the values of objective
+*  function and its gradients when needed. A client program must implement
+*  this function to evaluate the values of the objective function and its
+*  gradients, given current values of variables.
+*
+*  @param  instance        The user data sent for lbfgs() function by the client.
+*  @param  x               The current values of variables.
+*  @param  g               The gradient vector. The callback function must compute
+*                          the gradient values for the current variables.
+*  @param  n               The number of variables 
+                          (equals the number of entries in dictionary, i.e., space_dimension_*words_count_*dictionaries_count_).
+*  @param  step            The current step of the line search routine.
+*  @retval lbfgsfloatval_t The value of the objective function for the current
+*                          variables.
+*/
+lbfgsfloatval_t evaluate(
+  void *instance,
+  const lbfgsfloatval_t *x,
+  lbfgsfloatval_t *g,
+  const int n,
+  const lbfgsfloatval_t step
+  );
+
+/**
+* Callback interface to receive the progress of the optimization process.
+*
+*  The lbfgs() function call this function for each iteration. Implementing
+*  this function, a client program can store or display the current progress
+*  of the optimization process.
+*
+*  @param  instance    The user data sent for lbfgs() function by the client.
+*  @param  x           The current values of variables.
+*  @param  g           The current gradient values of variables.
+*  @param  fx          The current value of the objective function.
+*  @param  xnorm       The Euclidean norm of the variables.
+*  @param  gnorm       The Euclidean norm of the gradients.
+*  @param  step        The line-search step used for this iteration.
+*  @param  n           The number of variables
+                      (equals the number of entries in dictionary, i.e., space_dimension_*words_count_*dictionaries_count_).
+*  @param  k           The iteration count.
+*  @param  ls          The number of evaluations called for this iteration.
+*  @retval int         Zero to continue the optimization process. Returning a
+*                      non-zero value will cancel the optimization process.
+*/
+int progress(
+  void *instance,
+  const lbfgsfloatval_t *x,
+  const lbfgsfloatval_t *g,
+  const lbfgsfloatval_t fx,
+  const lbfgsfloatval_t xnorm,
+  const lbfgsfloatval_t gnorm,
+  const lbfgsfloatval_t step,
+  int n,
+  int k,
+  int ls
+  );
 
 class CompositeQuantization{
  public:
@@ -202,53 +261,15 @@ class CompositeQuantization{
 
 
 	 /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ friend functions ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-	 /**
-	 * Callback interface to provide objective function and gradient evaluations.
-	 * 
-	 *  The lbfgs() function call this function to obtain the values of objective
-	 *  function and its gradients when needed. A client program must implement
-	 *  this function to evaluate the values of the objective function and its
-	 *  gradients, given current values of variables.
-	 *
-	 *  @param  instance        The user data sent for lbfgs() function by the client.
-	 *  @param  x               The current values of variables.
-	 *  @param  g               The gradient vector. The callback function must compute
-	 *                          the gradient values for the current variables.
-	 *  @param  n               The number of variables 
-	                            (equals the number of entries in dictionary, i.e., space_dimension_*words_count_*dictionaries_count_).
-	 *  @param  step            The current step of the line search routine.
-	 *  @retval lbfgsfloatval_t The value of the objective function for the current
-	 *                          variables.
-	 */
-	 friend static lbfgsfloatval_t evaluate(
+
+	 friend lbfgsfloatval_t evaluate(
 		 void *instance,
 		 const lbfgsfloatval_t *x,
 		 lbfgsfloatval_t *g,
 		 const int n,
 		 const lbfgsfloatval_t step
-		 );
-	 /**
-	 * Callback interface to receive the progress of the optimization process.
-	 *
-	 *  The lbfgs() function call this function for each iteration. Implementing
-	 *  this function, a client program can store or display the current progress
-	 *  of the optimization process.
-	 *
-	 *  @param  instance    The user data sent for lbfgs() function by the client.
-	 *  @param  x           The current values of variables.
-	 *  @param  g           The current gradient values of variables.
-	 *  @param  fx          The current value of the objective function.
-	 *  @param  xnorm       The Euclidean norm of the variables.
-	 *  @param  gnorm       The Euclidean norm of the gradients.
-	 *  @param  step        The line-search step used for this iteration.
-	 *  @param  n           The number of variables
-	                        (equals the number of entries in dictionary, i.e., space_dimension_*words_count_*dictionaries_count_).
-	 *  @param  k           The iteration count.
-	 *  @param  ls          The number of evaluations called for this iteration.
-	 *  @retval int         Zero to continue the optimization process. Returning a
-	 *                      non-zero value will cancel the optimization process.
-	 */
-	 friend static int progress(
+	   );
+	 friend int progress(
 		 void *instance,
 		 const lbfgsfloatval_t *x,
 		 const lbfgsfloatval_t *g,

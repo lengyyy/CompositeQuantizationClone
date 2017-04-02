@@ -1,4 +1,7 @@
 #include "ClusterCommon.h"
+#include <string>
+
+using namespace std;
 
 namespace KMC
 {
@@ -22,6 +25,7 @@ namespace KMC
         return atof(str.c_str());
     }
 
+    /*
     std::vector<std::string> StringSplit(const std::string &str,const std::string &sep)
     {
         char* cstr=const_cast<char*>(str.c_str());
@@ -36,4 +40,20 @@ namespace KMC
         }
         return arr;
     }
+    */
+    vector<string> StringSplit(const string& str, const std::string& delim)
+    {
+      string s(str);
+      vector<string> result;
+      size_t pos(0);
+      string token;
+      size_t delimSize(delim.size());
+      while ((pos = s.find(delim)) != string::npos) {
+        token = s.substr(0, pos);
+        result.push_back(token);
+        s.erase(0, pos + delimSize);
+      }
+      return result;
+    }
+
 }

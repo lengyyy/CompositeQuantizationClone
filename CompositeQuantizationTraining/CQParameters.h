@@ -105,56 +105,8 @@ public:
 	template<typename T>
 	T StringToValue(const string& str);
 	
-	/**
-	* string (The explicit specialization definition).
-	*/
-	template<> string StringToValue<string>(const string& str)
-	{
-		return string(str);
-	}
-
-	/**
-	* int (The explicit specialization definition).
-	*/
-	template<> int StringToValue<int>(const string& str)
-	{
-		return atoi(str.c_str());
-	}
-
-	/**
-	* float (The explicit specialization definition).
-	*/
-	template<> float StringToValue<float>(const string& str)
-	{
-		return float(atof(str.c_str()));
-	}
-
-	/**
-	* double (The explicit specialization definition).
-	*/
-	template<> double StringToValue<double>(const string& str)
-	{
-		return atof(str.c_str());
-	}
-
-
-	/**
-	* This template function converts a value to a string and returns it.
-	*  @param  val    The value to be coverted.
-	*/
-	template<typename T>
-	string ValueToString(const T& val)
-	{
-		return std::to_string(T);
-	}
-
-	/**
-	* string (The explicit specialization definition).
-	*/
-	template<> string ValueToString<string>(const string& val)
-	{
-		return val;
-	}
+  template<typename T>
+  string ValueToString(const T& val);
 
 private:
 	/**
@@ -162,3 +114,53 @@ private:
 	*/
 	map<string, string> parameter_set;
 };
+
+	/**
+	* string (The explicit specialization definition).
+	*/
+	template<> string CQParameters::StringToValue<string>(const string& str)
+	{
+		return string(str);
+	}
+
+	/**
+	* int (The explicit specialization definition).
+	*/
+	template<> int CQParameters::StringToValue<int>(const string& str)
+	{
+		return atoi(str.c_str());
+	}
+
+	/**
+	* float (The explicit specialization definition).
+	*/
+	template<> float CQParameters::StringToValue<float>(const string& str)
+	{
+		return float(atof(str.c_str()));
+	}
+
+	/**
+	* double (The explicit specialization definition).
+	*/
+	template<> double CQParameters::StringToValue<double>(const string& str)
+	{
+		return atof(str.c_str());
+	}
+
+	/**
+	* This template function converts a value to a string and returns it.
+	*  @param  val    The value to be coverted.
+	*/
+	template<typename T>
+	string CQParameters::ValueToString(const T& val)
+	{
+		return std::to_string(val);
+	}
+
+	/**
+	* string (The explicit specialization definition).
+	*/
+	template<> string CQParameters::ValueToString<string>(const string& val)
+	{
+		return val;
+	}

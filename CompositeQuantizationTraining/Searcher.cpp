@@ -1,5 +1,6 @@
 #include "Searcher.h"
-
+#include <cstring>
+#include <cfloat>
 
 Searcher::Searcher(
 	const int points_count,

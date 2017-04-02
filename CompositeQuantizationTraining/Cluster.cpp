@@ -1,4 +1,6 @@
 #include "Cluster.h"
+#include <cstdio>
+#include <cstring>
 #include <algorithm>
 #include <string>
 
@@ -39,9 +41,11 @@ namespace KMC
 	void ClusterBase::LoadData(const Parameters & params)
 	{
 		std::string sDataPath = params.Get<std::string>("DataPath");
-		FILE * fp;
-		fopen_s(&fp, sDataPath.c_str(), "rb");
-        if (m_pData != NULL && m_bOwnData) delete m_pData;
+		FILE * fp (fopen(sDataPath.c_str(), "rb"));
+		//fopen_s(&fp, sDataPath.c_str(), "rb");
+
+    if (m_pData != NULL && m_bOwnData) 
+      delete m_pData;
 		m_bOwnData = true;
         int R, C;
         fread(&R, sizeof(int), 1, fp);

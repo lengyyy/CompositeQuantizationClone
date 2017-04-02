@@ -24,7 +24,8 @@ namespace KMC
 	
 	const FloatType MaxDist = 1e20f;
 
-	class KMCException:public std::exception
+  /*
+	class KMCException: public std::exception
     {
     public:
         KMCException() {}
@@ -39,6 +40,41 @@ namespace KMC
         {
         }
     };
+  */
+  class IOException : public std::exception
+  {
+    const char* info_;
+  public:
+    IOException(const char* const& info)
+      : info_(info)
+    {
+    }
+    IOException(const std::string& info)
+      : info_(info.c_str())
+    {
+    }
+    virtual const char* what() const throw()
+    {
+      return info_;
+    }
+  };
+  class KMCException: public std::exception
+  {
+    const char* info_;
+  public:
+    KMCException(const char* const& info)
+      : info_(info)
+    {
+    }
+    KMCException(const std::string& info)
+      : info_(info.c_str())
+    {
+    }
+    virtual const char* what() const throw()
+    {
+      return info_;
+    }
+  };
 
     struct KeyScorePair
     {
@@ -47,7 +83,8 @@ namespace KMC
         KeyScorePair(int _key = -1, FloatType _score = 0)
             :Key(_key), Score(_score)
         {}
-        __forceinline static bool Compare (KeyScorePair i,KeyScorePair j) { return (i.Score < j.Score || i.Score == j.Score && i.Key < j.Key); }
+        //__forceinline static bool Compare (KeyScorePair i,KeyScorePair j) { return (i.Score < j.Score || i.Score == j.Score && i.Key < j.Key); }
+        inline static bool Compare (KeyScorePair i,KeyScorePair j) { return (i.Score < j.Score || i.Score == j.Score && i.Key < j.Key); }
     };
 
     template<typename T>

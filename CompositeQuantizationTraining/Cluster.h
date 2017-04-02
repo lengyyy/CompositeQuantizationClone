@@ -107,7 +107,8 @@ namespace KMC
             {
                 std::string message = "unable to open configuration file " + fileName;    
                 std::cerr<<std::endl<<message;
-                throw std::exception(message.c_str());        
+                //throw std::exception(message.c_str());
+                throw IOException(message.c_str());
             }
 
             while(!inputStream.eof())
@@ -127,7 +128,8 @@ namespace KMC
                     }
                     else
                     {
-                        throw std::exception(("Error in parsing data " + currentLine).c_str());
+                        //throw std::exception(("Error in parsing data " + currentLine).c_str());
+                        throw IOException(("Error in parsing data " + currentLine).c_str());
                     }
 
                     tokens.clear();

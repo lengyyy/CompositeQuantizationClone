@@ -3,6 +3,8 @@
 #include "time.h"
 #include <string>
 #include <stdlib.h>
+#include <cstring>
+#include <cfloat>
 #include <algorithm>
 #include <vector>
 #include <iostream>

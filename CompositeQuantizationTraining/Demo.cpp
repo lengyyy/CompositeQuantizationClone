@@ -120,7 +120,7 @@ void SearchDemo(CQParameters& param)
 
 int main(int argc, char** argv)
 {
-	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+	//_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
 	omp_set_num_threads(omp_get_num_procs());
 	cout << "Set threads: " << omp_get_num_procs() << endl;
@@ -153,7 +153,7 @@ int main(int argc, char** argv)
 	}
 	
 	
-	_CrtDumpMemoryLeaks();
+	//_CrtDumpMemoryLeaks();
 	system("pause");
 	return 0;
 }
