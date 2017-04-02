@@ -1,0 +1,47 @@
+﻿Build started 1/26/2015 10:12:04 PM.
+     1>Project "D:\code\Visual Studio 2013\Projects\CompositeQuantizationTraining\CompositeQuantizationTraining\CompositeQuantizationTraining.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\x86_amd64\CL.exe /c /Zi /nologo /W3 /WX- /sdl /Od /D _CRT_SECURE_NO_WARNINGS /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /Zc:wchar_t /Zc:forScope /openmp /Yu"stdafx.h" /Fp"x64\Debug\CompositeQuantizationTraining.pch" /Fo"x64\Debug\\" /Fd"x64\Debug\vc120.pdb" /Gd /TP /errorReport:prompt CompositeQuantization.cpp
+         CompositeQuantization.cpp
+     1>CompositeQuantization.cpp(201): warning C4244: '+=' : conversion from 'const lbfgsfloatval_t' to 'float', possible loss of data
+     1>CompositeQuantization.cpp(243): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
+     1>CompositeQuantization.cpp(285): warning C4244: '=' : conversion from 'lbfgsfloatval_t' to 'float', possible loss of data
+     1>CompositeQuantization.cpp(337): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>CompositeQuantization.cpp(338): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>CompositeQuantization.cpp(351): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
+     1>CompositeQuantization.cpp(424): warning C4244: '+=' : conversion from 'const lbfgsfloatval_t' to 'float', possible loss of data
+     1>CompositeQuantization.cpp(437): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
+     1>CompositeQuantization.cpp(443): warning C4244: '+=' : conversion from 'const lbfgsfloatval_t' to 'float', possible loss of data
+     1>CompositeQuantization.cpp(460): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
+     1>d:\code\visual studio 2013\projects\compositequantizationtraining\compositequantizationtraining\DataUtil.h(175): warning C4244: '=' : conversion from 'std::streamoff' to 'int', possible loss of data
+                 CompositeQuantization.cpp(77) : see reference to function template instantiation 'void ReadOneDimensionalPoints<float>(const std::string,PointType,T *,const int,const int)' being compiled
+                 with
+                 [
+                     T=float
+                 ]
+     1>d:\code\visual studio 2013\projects\compositequantizationtraining\compositequantizationtraining\DataUtil.h(194): warning C4244: '=' : conversion from 'std::streamoff' to 'int', possible loss of data
+     1>d:\code\visual studio 2013\projects\compositequantizationtraining\compositequantizationtraining\DataUtil.h(213): warning C4244: '=' : conversion from 'std::streamoff' to 'int', possible loss of data
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\x86_amd64\link.exe /ERRORREPORT:PROMPT /OUT:"D:\code\Visual Studio 2013\Projects\CompositeQuantizationTraining\x64\Debug\CompositeQuantizationTraining.exe" /INCREMENTAL /NOLOGO mkl_intel_lp64.lib mkl_intel_thread.lib mkl_core.lib libiomp5md.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:\code\Visual Studio 2013\Projects\CompositeQuantizationTraining\x64\Debug\CompositeQuantizationTraining.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\code\Visual Studio 2013\Projects\CompositeQuantizationTraining\x64\Debug\CompositeQuantizationTraining.lib" /MACHINE:X64 x64\Debug\ClosureCluster.obj
+         x64\Debug\Cluster.obj
+         x64\Debug\ClusterCommon.obj
+         x64\Debug\NoConstraintCompositeQuantization.obj
+         x64\Debug\CompositeQuantization.obj
+         x64\Debug\Demo.obj
+         x64\Debug\Kmeans.obj
+         x64\Debug\CQParameters.obj
+         x64\Debug\PartitioningTree.obj
+         x64\Debug\ProductQuantization.obj
+         x64\Debug\Searcher.obj
+         x64\Debug\stdafx.obj
+         lbfgs.lib(lbfgs.obj) : MSIL .netmodule or module compiled with /GL found; restarting link with /LTCG; add /LTCG to the link command line to improve linker performance
+     1>LINK : warning LNK4075: ignoring '/INCREMENTAL' due to '/LTCG' specification
+     1>MSVCRTD.lib(cinitexe.obj) : warning LNK4098: defaultlib 'msvcrt.lib' conflicts with use of other libs; use /NODEFAULTLIB:library
+         Generating code
+         Finished generating code
+         CompositeQuantizationTraining.vcxproj -> D:\code\Visual Studio 2013\Projects\CompositeQuantizationTraining\x64\Debug\CompositeQuantizationTraining.exe
+     1>Done Building Project "D:\code\Visual Studio 2013\Projects\CompositeQuantizationTraining\CompositeQuantizationTraining\CompositeQuantizationTraining.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:02.33

@@ -1,0 +1,16 @@
+ClosureCluster=1
+DataPath=sift_base.binary
+RandSeed=1221
+NCluster=256
+MaxIteration=100
+PartitionMethod=Rptree
+NThreads=8
+Closure_MaxTreeNum=10
+Closure_LeafSize=200
+Closure_DynamicTrees=1
+Rptree_nMaxSample=1000
+Rptree_nIteration=100
+Rptree_nAxis=5
+OutputPrefix=demo.closure.output
+OutputTextResult=1
+OutputBinaryResult=0

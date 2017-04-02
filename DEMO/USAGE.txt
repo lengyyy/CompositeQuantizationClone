@@ -1,0 +1,115 @@
+##################### USAGE ####################
+-----------------
+1. Check the code
+-----------------
+You can click the CompositeQuantizationTraining.sln and open it in Visual Studio. The main entry of the code is CompositeQuantizationTraining\demo.cpp, where shows the demo of ProductQuantization (PQ), NoConstraintCompositeQuantization (NCQ), CompositeQuantization (CQ) and Search.
+
+---------------
+2. Run the code
+---------------
+After build, you can copy x64\Release\CompositeQuantizationTraining.exe to Demo\ folder, and specifies the parameters in the Demo\config.txt and then double click Demo\CompositeQuantizationTraining.exe to run. 
+
+In the given example Demo\config.txt (an example of running Composite quantization on siftsmall dataset and give the search results), the code will output the results in OUTPUT folder which should be the same with OUTPUT_demo folder. And the search results are recall@1<T=1>:0.65, recall@10<T=1>:0.97, recall@100<T=1>:1.
+
+The search quality is measured using recall@R. For each
+query, we retrieve its R nearest items and compute the ratio
+of R to T , i.e., the fraction of T ground-truth nearest
+neighbors are found in the retrieved R items. The average
+recall score over all the queries is used as the measure.
+
+T is usually 1. It can be changed from the source code SearchDemo function (Search.GetRecall(R, 1);) in CompositeQuantizationTraining\demo.cpp.
+
+---------------------------
+3. Parameters in config.txt
+---------------------------
+1. PQ, NCQ, CQ ---- choose one of quantization methods and set the correponding parameter to be 1. That is, if do product quantization, then set PQ=1, otherwise PQ=0. If do no-constraint composite quantization, then set NCQ=1, otherwise NCQ=0. If do composite quantization, then set CQ=1, otherwise CQ=0. Note that only one of PQ, NCQ, CQ can be 1.
+
+2. Search ---- if do linear scan search, then set Search=1, otherwise Search=0.
+
+3. global parameters are need to be set for all operation, i.e., PQ, NCQ, CQ, Search.
+   points_count ---- the number of points in the dataset.
+   dictionaries_count ---- the number of dictionaries.
+   words_count ---- the number of elements in each dictionary,                          
+                    usually 256.
+   space_dimension ---- the feature dimension of each point.
+   points_file ---- the folder where points are stored.
+   output_file_prefix ---- specify the output file prefix.
+   max_iter ---- the max number of iterations, usually 30.
+
+4. PQ parameters, only need to be set when PQ=1.
+   distortion_tol ---- the terminate condition that the training 
+                       will stop if distortion relative 
+                       variation is less than the value. Usually 
+                       don't need to be changed.
+   read_partition ---- 0, the partition is done sucessively                           
+                       dimension; 1, the partition is from  
+                       outside and need to specify the                         
+                       partition_file parameter. Usually 0.
+   partition_file ---- the partition folder for PQ, determins   
+                       which dimension of feature belongs to 
+                       which part. See OUTPUT_demo\PQ.partition 
+                       as an example. It is in BINARY format.
+   kmeans_method ---- if 101 then using closure cluster, else 
+                      lloyd kmeans
+5. NCQ and CQ parameters, need to be set when NCQ=1 or CQ=1.
+   num_sep ---- divide the dataset into num_sep partitions and 
+                utilize the parallel computation to accelerate 
+                the training speed. Usually don't need to be 
+                changed.
+   initial_from_outside ---- 0 the code will initialize inside 
+                             using PQ, 1 then the following two 
+                             parameters need to be set. Usually 
+                             0.
+   dictionary_file ---- the folder where dictionary is stored in 
+                        BINARY format.
+   binary_codes_file ---- the folder where the binary codes is 
+                          stored in BINARY format.
+
+6. CQ parameter, only need to be set when CQ=1.
+   mu ---- the mu parameter in the paper, different for 
+           different dataset, the value is described in 
+           CompositeQuantizationTraining
+           \CompositeQuantization.h. For other datasets, it is 
+           need to be tuned. 
+
+7. Search parameter, only need to be set when Search=1.
+   queries_count ---- the number of queries.
+   groundtruth_length ---- the length of groundtruth neighbors.
+   result_length ---- the number of list length retrieved from 
+                      dataset.
+   queries_file ---- the folder where the queries are stored
+   groundtruth_file ---- the folder where the groundtruth are 
+                         stored.
+   trained_dictionary_file ---- the folder where the trained 
+                                dictionary is stored.
+   trained_binary_codes_file ---- the folder where the trained 
+                                  binary codes are stored.
+   output_retrieved_results_file ---- the folder where the 
+                                      retrieved results will be 
+                                      stored.
+
+---------------
+4. File formats
+---------------
+Our code uses four file formats: FVEC, BVEC, IVEC, BINARY.
+
+Usually, the data points are assumed to be .fvecs (FVEC) or .bvecs (BVEC) file formats and the ground truth are assumed to be .ivecs (IVEC) file format developed by INRIA LEAR and TEXMEX groups. The detailed decription for these three formats as well as matlab function to read can be found in http://corpus-texmex.irisa.fr/ . 
+
+The fourth file format we referred in our code is BINARY, which is often used in our code. We describe it using examples of dictionary and binary codes.
+
+(1) dictionary
+    We assume that dictionary is in the following format:
+	4 bytes (one int32) -- the number of dictionary elements (M*K)
+	4 bytes (one int32) -- the dimension of element (d)
+	4*M*K*d bytes (M*K*d floats) -- the dictionary element entries one after another
+	
+(2) binary codes 
+    We assume that binary codes are in the following format:
+	4 bytes (one int32) -- the number of points (N)
+	4 bytes (one int32) -- the number of indexes (M)
+	4*N*M bytes (N*M int32) or N*M bytes (N*M unsigned char) -- binary code entries one after another
+
+
+In our demo, we assume the data points and query points are stored in FVEC, the groundtruth file are stored in IVEC and the dictionary file and binary codes file are stored in BINARY. 
+
+To change the stored type when doing initialization, change the initial function of each Demo function in CompositeQuantizationTraining\demo.cpp.

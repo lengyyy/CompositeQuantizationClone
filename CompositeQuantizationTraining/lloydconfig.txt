@@ -1,0 +1,13 @@
+LloydKMeans=1
+DataPath=sift_base.binary
+RandSeed=1221
+NCluster=256
+MaxIteration=50
+NThreads=1
+PartitionMethod=Rptree
+Rptree_nMaxSample=1000
+Rptree_nIteration=100
+Rptree_nAxis=5
+OutputPrefix=results\demo.lloyd.output
+OutputTextResult=1
+OutputBinaryResult=0

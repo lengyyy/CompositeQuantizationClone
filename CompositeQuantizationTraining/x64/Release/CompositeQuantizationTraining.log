@@ -1,0 +1,27 @@
+﻿Build started 4/19/2016 11:20:00 AM.
+     1>Project "D:\v-tinz\Code\CompositeQuantization\CompositeQuantizationTraining\CompositeQuantizationTraining\CompositeQuantizationTraining.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\x86_amd64\CL.exe /c /Zi /nologo /W3 /WX- /sdl /O2 /Oi /GL /D _CRT_SECURE_NO_WARNINGS /D WIN32 /D NDEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /openmp /Fo"x64\Release\\" /Fd"x64\Release\vc120.pdb" /Gd /TP /errorReport:prompt Demo.cpp
+         Demo.cpp
+     1>Demo.cpp(33): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\x86_amd64\link.exe /ERRORREPORT:PROMPT /OUT:"D:\v-tinz\Code\CompositeQuantization\CompositeQuantizationTraining\x64\Release\CompositeQuantizationTraining.exe" /INCREMENTAL:NO /NOLOGO mkl_intel_lp64.lib mkl_intel_thread.lib mkl_core.lib libiomp5md.lib lbfgs.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:\v-tinz\Code\CompositeQuantization\CompositeQuantizationTraining\x64\Release\CompositeQuantizationTraining.pdb" /SUBSYSTEM:CONSOLE /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\v-tinz\Code\CompositeQuantization\CompositeQuantizationTraining\x64\Release\CompositeQuantizationTraining.lib" /MACHINE:X64 x64\Release\ClosureCluster.obj
+         x64\Release\Cluster.obj
+         x64\Release\ClusterCommon.obj
+         x64\Release\NoConstraintCompositeQuantization.obj
+         x64\Release\CompositeQuantization.obj
+         x64\Release\Demo.obj
+         x64\Release\Kmeans.obj
+         x64\Release\CQParameters.obj
+         x64\Release\PartitioningTree.obj
+         x64\Release\ProductQuantization.obj
+         x64\Release\Searcher.obj
+         Generating code
+         Finished generating code
+     1>lbfgs.lib(lbfgs.obj) : warning LNK4099: PDB 'vc110.pdb' was not found with 'lbfgs.lib(lbfgs.obj)' or at 'D:\v-tinz\Code\CompositeQuantization\CompositeQuantizationTraining\x64\Release\vc110.pdb'; linking object as if no debug info
+         CompositeQuantizationTraining.vcxproj -> D:\v-tinz\Code\CompositeQuantization\CompositeQuantizationTraining\x64\Release\CompositeQuantizationTraining.exe
+     1>Done Building Project "D:\v-tinz\Code\CompositeQuantization\CompositeQuantizationTraining\CompositeQuantizationTraining\CompositeQuantizationTraining.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:06.16
