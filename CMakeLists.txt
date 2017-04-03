@@ -5,10 +5,9 @@
 #
 # start description
 cmake_minimum_required (VERSION 2.8)
-project (CompositeQuantization)
+project (CompositeQuantization CXX)
 
 SET (CMAKE_CXX_STANDARD 11)
-SET (CMAKE_C_STANDARD 11)
 
 #########################################################################
 #
@@ -31,6 +30,9 @@ SET(CQ_HOME "/opt/intel")
 SET(BLAS_DIR "${CQ_HOME}/mkl/include")
 SET(BLAS_LIB "${CQ_HOME}/mkl/lib/intel64"
              "${CQ_HOME}/compilers_and_libraries/linux/lib/intel64")
+
+SET(GCC_COVERAGE_COMPILE_FLAGS "-DMKL_ILP64 -m64")
+SET(CMAKE_CXX_FLAGS "${GCC_COVERAGE_COMPILE_FLAGS} ${CMAKE_CXX_FLAGS}")
 
 ########################################################################
 #
@@ -111,19 +113,30 @@ SET(CQTraining_ALL_CC ${UTIL} ${CLOSURE} ${HEADER} ${SOURCE})
 ########################################################################
 #
 INCLUDE_DIRECTORIES(${BLAS_DIR})
-LINK_DIRECTORIES(${BLAS_LIB})
+#LINK_DIRECTORIES(${BLAS_LIB})
 INCLUDE_DIRECTORIES(${Source_Path})
 
-#LINK_DIRECTORIES(${Source_Path}/lbfgslib)
-LINK_DIRECTORIES("/usr/local/lib/liblbfgs")
+SET (CMAKE_SHARED_LINKER_FLAGS "-Wl, --no-as-needed")
+FIND_LIBRARY (INTEL_MKL NAMES libmkl_intel_lp64.so libmkl_intel_thread.so libmkl_core.so HINTS "/opt/intel/mkl/lib/intel64")
+FIND_LIBRARY (IOMP NAMES libiomp5.so HINTS "/opt/intel/lib/intel64")
+IF (INTEL_MKL AND IOMP)
+  MESSAGE("intel mkl lib found")
+ENDIF()
+
+FIND_LIBRARY (LIBLBFGS NAMES liblbfgs.so)
+IF (LIBLBFGS)
+  MESSAGE("liblbfgs found")
+ENDIF ()
+
 ADD_EXECUTABLE (CompositeQuantization ${CQTraining_ALL_CC})
 
 IF (MSVC)
   MESSAGE("Compile by MSVC")
-  TARGET_LINK_LIBRARIES (CompositeQuantization  mkl_intel_lp64.lib mkl_intel_thread.lib mkl_core.lib libiomp5md.lib lbfgs.lib)
-ENDIF (MSVC)
+  TARGET_LINK_LIBRARIES (CompositeQuantization mkl_intel_lp64.lib mkl_intel_thread.lib mkl_core.lib libiomp5md.lib lbfgs.lib)
+ENDIF ()
 
-IF (LINUX)
-  MESSAGE("Compile by GCC")
-  TARGET_LINK_LIBRARIES (CompositeQuantization  mkl_intel_lp64.so mkl_intel_thread.so mkl_core.so libiomp5md.so lbfgs.so)
-ENDIF (LINUX)
+IF (UNIX AND NOT APPLE)
+  MESSAGE("Compile by LINUX GCC")
+  TARGET_LINK_LIBRARIES (CompositeQuantization ${INTEL_MKL} ${LIBLBFGS})
+  TARGET_LINK_LIBRARIES (CompositeQuantization m dl pthread)
+ENDIF ()

@@ -5,6 +5,7 @@
 #include <fstream>
 #include <ios>
 #include <iostream>
+#include <stdexcept>
 #include <vector>
 
 using std::string;
