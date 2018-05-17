@@ -89,3 +89,53 @@ void CQParameters::LoadFromFile(const string parameter_file)
 	}
 	inputStream.close();
 }
+
+/**
+	* string (The explicit specialization definition).
+	*/
+template<> string CQParameters::StringToValue<string>(const string& str)
+{
+	return string(str);
+}
+
+/**
+* int (The explicit specialization definition).
+*/
+template<> int CQParameters::StringToValue<int>(const string& str)
+{
+	return atoi(str.c_str());
+}
+
+/**
+* float (The explicit specialization definition).
+*/
+template<> float CQParameters::StringToValue<float>(const string& str)
+{
+	return float(atof(str.c_str()));
+}
+
+/**
+* double (The explicit specialization definition).
+*/
+template<> double CQParameters::StringToValue<double>(const string& str)
+{
+	return atof(str.c_str());
+}
+
+/**
+* This template function converts a value to a string and returns it.
+*  @param  val    The value to be coverted.
+*/
+template<typename T>
+string CQParameters::ValueToString(const T& val)
+{
+	return std::to_string(val);
+}
+
+/**
+* string (The explicit specialization definition).
+*/
+template<> string CQParameters::ValueToString<string>(const string& val)
+{
+	return val;
+}
